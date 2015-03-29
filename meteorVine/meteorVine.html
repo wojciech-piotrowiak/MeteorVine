@@ -1,0 +1,35 @@
+<head>
+  <title>meteorVine</title>
+</head>
+
+<body>
+  <h1>Welcome to Meteor Vine App!</h1>
+
+  {{> hello}}
+  {{> loginButtons}}
+</body>
+
+<template name="hello">
+  <p>We having {{counter}} vines.</p>
+   <ul>
+      {{#each vines}}
+        {{> vine}}
+      {{/each}}
+    </ul>
+	
+	{{#if currentUser}}
+	<form class="new-vine">
+		<input type="text" name="text" placeholder="Type to add new vine" />
+	</form>
+	{{/if}}
+</template>
+
+<template name="vine">
+<li>
+<span class="text">{{name}}-{{prettifyDate createdAt}}-by: {{author}}- Having Likes: {{likes}}</span>
+<form class="like-vine">
+	<input name="vine" type="hidden" value="{{_id}}"/>
+	<button class="text">Like!</button>
+</form>
+</li>
+</template>

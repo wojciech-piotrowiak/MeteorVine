@@ -3,19 +3,16 @@ Vines = new Mongo.Collection("vines");
 if (Meteor.isClient) {
  Meteor.subscribe("vines");
  
-  Template.hello.helpers({
+  Template.allVines.helpers({
     counter: function () {
       return Vines.find({}).count();
     },
 	 vines: function () {
       return Vines.find({});
-    },
-	isOwner: function () {
-	return this.owner === Meteor.userId();
-	}
+    }
   });
 
-  Template.hello.events({
+  Template.allVines.events({
 	"submit .new-vine": function (event) {
 		var text = event.target.text.value;
 		Meteor.call("addVine", text);
@@ -29,6 +26,14 @@ if (Meteor.isClient) {
 		event.preventDefault();
 		var vineID=event.target.vine.value;
 		Meteor.call("likeVine",vineID);
+		return false;
+	},
+	"submit .comment-vine": function (event) {
+		event.preventDefault();
+		var vineID=event.target.vine.value;
+		var comment=event.target.comment.value;
+		Meteor.call("addComment",vineID,comment);
+		event.target.comment.value = "";
 		return false;
 	}
   });
@@ -45,18 +50,24 @@ if (Meteor.isClient) {
 	 Meteor.methods({
 		addVine: function (name) {
 			Vines.insert({
-			name: name,
-			createdAt: new Date(),
-			author:Meteor.userId(),
-			likes:0
+				name: name,
+				createdAt: new Date(),
+				authorID:Meteor.userId(),
+				authorName:Meteor.user().username,
+				likes:0,
+				comments:[]
 			});
 		},
-		likeVine: function (vine) {
-		console.log(vine);
+		likeVine: function (vineID) {
 			Vines.update({
-			_id: vine}
+			_id: vineID}
 			,{  $inc: {"likes":1}
 			});
+		},
+		addComment: function (vineID,comment) {
+			Vines.update({
+			_id: vineID}
+			,{ $addToSet: {comments: [comment] } });
 		}
 	});
 

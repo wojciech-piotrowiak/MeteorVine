@@ -1,5 +1,7 @@
 Vines = new Mongo.Collection("vines");
-
+Router.route('/');
+Router.route('/contact');
+ 
 if (Meteor.isClient) {
  Meteor.subscribe("vines");
  

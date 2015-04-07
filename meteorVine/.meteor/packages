@@ -9,3 +9,4 @@ insecure
 accounts-ui
 accounts-password
 momentjs:moment
+iron:router

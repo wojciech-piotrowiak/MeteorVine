@@ -22,18 +22,32 @@
 <template name="vine">
 <li>
 	<span class="text">{{name}}-{{prettifyDate createdAt}}</span><br/>
-	<span class="text">Created by: {{authorName}} - Likes: {{likes}} {{comments}}</span>
+	<span class="text">Created by: {{authorName}} - Likes: {{likes}} </span>
+	<div>
+		<ul>
+			{{#each comments}}
+			{{> comment}}
+			{{/each}}
+		</ul>
+	</div>
 
 	<form class="like-vine">
 		<input name="vine" type="hidden" value="{{_id}}"/>
 		<button class="text">Like!</button>
 	</form>
+	<span class="text">Comment vine: </span><br/>
 	<form class="comment-vine">
 		<input name="vine" type="hidden" value="{{_id}}"/>
 		<input name="comment" type="text" />
 		<button class="text">Send</button>
 	</form>
 </li>
+</template>
+
+<template name="comment">
+	<li>
+		<span>{{this}}</span>
+	</li>
 </template>
 
 
@@ -43,4 +57,8 @@
 		<input type="text" name="text" placeholder="Type to add new vine" />
 	</form>
 	{{/if}}
+</template>
+
+<template name="contact">
+	<span> Meet me @: github.com/wojciech-piotrowiak/</span>
 </template>

@@ -1,0 +1,23 @@
+
+<template name="recipies">
+	<ul>
+		{{#each recipies}}
+		{{> recipe}}
+		{{/each}}
+	</ul>
+	{{> newRecipe}}
+</template>
+
+<template name="recipe">
+	<li>
+		<span>{{recipe}}</span>
+	</li>
+</template>
+
+<template name="newRecipe">
+	{{#if currentUser}}
+	<form class="new-recipe">
+		<input type="text" name="text" placeholder="Type to add new vine recipe" />
+	</form>
+	{{/if}}
+</template>

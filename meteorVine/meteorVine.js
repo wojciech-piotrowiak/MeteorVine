@@ -1,9 +1,9 @@
 Vines = new Mongo.Collection("vines");
-Router.route('/');
-Router.route('/contact');
+Recipies = new Mongo.Collection("recipies");
  
 if (Meteor.isClient) {
  Meteor.subscribe("vines");
+ Meteor.subscribe("recipies");
  
   Template.allVines.helpers({
     counter: function () {
@@ -13,11 +13,26 @@ if (Meteor.isClient) {
       return Vines.find({});
     }
   });
+  
+  Template.recipies.helpers({
+	 recipies: function () {
+      return Recipies.find({});
+    }
+  });
 
   Template.allVines.events({
 	"submit .new-vine": function (event) {
 		var text = event.target.text.value;
 		Meteor.call("addVine", text);
+		event.target.text.value = "";
+		return false;
+	}
+  });
+  
+  Template.newRecipe.events({
+	"submit .new-recipe": function (event) {
+		var recipe = event.target.text.value;
+		Meteor.call("addVineRecipe", recipe);
 		event.target.text.value = "";
 		return false;
 	}
@@ -70,15 +85,25 @@ if (Meteor.isClient) {
 			Vines.update({
 			_id: vineID}
 			,{ $addToSet: {comments: [comment] } });
-		}
-	});
+		},
+		addVineRecipe: function (recipe){
+			Recipies.insert({
+			authorID:Meteor.userId(),
+			authorName:Meteor.user().username,
+			recipe:recipe
+			});
+	}});
 
 if (Meteor.isServer) {
   Meteor.publish("vines", function () {
     return Vines.find();
   });
+  Meteor.publish("recipies", function () {
+    return Recipies.find();
+  });
   
   Meteor.startup(function(){
     Vines.remove({});
+	Recipies.remove({});
 });
 }

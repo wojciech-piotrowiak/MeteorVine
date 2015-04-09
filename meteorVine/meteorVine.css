@@ -1,1 +1,26 @@
 /* CSS declarations go here */
+.vinecontainer {
+padding-top:50px;
+}
+
+li > #login-buttons a {
+text-decoration: none;
+color:#fff;
+}
+
+li > #login-buttons {
+padding:12px;
+}
+
+li > #login-buttons .login-close-text {
+color:#000;
+}
+
+li > #login-buttons #signup-link {
+color:#000;
+}
+
+.vinelist {
+border:1px solid #000;
+list-style:none;
+}

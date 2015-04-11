@@ -1,26 +1,39 @@
 /* CSS declarations go here */
-.vinecontainer {
+html, body {
+    height: 100%;
+}
+
+#wrap > .container {
 padding-top:50px;
 }
 
 li > #login-buttons a {
 text-decoration: none;
-color:#fff;
 }
 
 li > #login-buttons {
 padding:12px;
 }
 
-li > #login-buttons .login-close-text {
-color:#000;
-}
-
-li > #login-buttons #signup-link {
-color:#000;
-}
-
 .vinelist {
 border:1px solid #000;
 list-style:none;
+}
+
+#wrap {
+    min-height: 100%;
+    height: auto !important;
+    margin: 0px auto -60px;
+}
+
+#footer {
+    background-color: #F5F5F5;
+}
+
+#push, #footer {
+    height: 60px;
+}
+
+.container .credit {
+    margin: 20px 0px;
 }

@@ -10,3 +10,5 @@ accounts-ui
 accounts-password
 momentjs:moment
 iron:router
+sanjo:jasmine@0.13.0-rc.4
+velocity:html-reporter
